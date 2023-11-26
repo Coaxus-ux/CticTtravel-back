@@ -22,7 +22,7 @@ public class Admins {
     private String adminName;
     @Column(name = "admin_last_name", nullable = false, length = 150)
     private String adminLastName;
-    @Column(name = "admin_email", nullable = false, length = 260)
+    @Column(name = "admin_email", nullable = false, length = 260, unique = true)
     private String adminEmail;
     @Column(name = "admin_password", nullable = false, length = 260)
     private String adminPassword;
