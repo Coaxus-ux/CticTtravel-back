@@ -1,5 +1,6 @@
 package ctictravel.ctictravel.Utils;
 
+import ctictravel.ctictravel.Models.AtractivePlaces;
 import ctictravel.ctictravel.Models.Reservations;
 import ctictravel.ctictravel.Models.TouristDestination;
 import ctictravel.ctictravel.Models.TouristPlans;
@@ -62,5 +63,21 @@ public class DTOUtils {
             touristDestinationUser.put(t.getTouristDestinationId().toString(), touristDestination);
         }
         return touristDestinationUser;
+    }
+
+    public static Map<String, Object> convertPlacesToMap(List<AtractivePlaces> atractivePlaces){
+        Map<String, Object> atractivePlacesUser = new HashMap<>();
+        for (AtractivePlaces ap: atractivePlaces){
+            Map<String, Object> atractivePlace = new HashMap<>();
+            atractivePlace.put("atractivePlaceId", ap.getAtractivePlaceId());
+            atractivePlace.put("atractivePlaceName", ap.getAtractivePlaceName());
+            atractivePlace.put("atractivePlaceDescription", ap.getAtractivePlaceDescription());
+            atractivePlace.put("atractivePlaceCountry", ap.getAtractivePlaceCountry());
+            atractivePlace.put("atractivePlaceState", ap.getAtractivePlaceState());
+            atractivePlace.put("atractivePlaceCity", ap.getAtractivePlaceCity());
+            atractivePlace.put("touristDestinationId", ap.getTouristDestination().getTouristDestinationId());
+            atractivePlacesUser.put(ap.getAtractivePlaceId().toString(), atractivePlace);
+        }
+        return atractivePlacesUser;
     }
 }
