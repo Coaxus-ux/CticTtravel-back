@@ -1,7 +1,6 @@
 package ctictravel.ctictravel.DAO.TransportMethods;
 
 import ctictravel.ctictravel.Interfaces.CommunicationInterface;
-import ctictravel.ctictravel.Interfaces.ResponseEntityInterface;
 import ctictravel.ctictravel.Models.TransportMethods;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -52,7 +51,7 @@ public class TransportMethodsImp implements TransportMethodsInterface {
         if (transportMethodsDataBase.isEmpty())
             return new CommunicationInterface.Builder().setSuccessful(false).setMessage("Transport Method not found").build();
         TransportMethods transportMethod = transportMethodsDataBase.get(0);
-        transportMethod.setTransportMethodType(transportMethods.getTransportMethodType());
+        transportMethod.updateTransportMethod(transportMethods);
         entityManager.persist(transportMethod);
         return new CommunicationInterface.Builder().setSuccessful(true).setMessage("Transport Method updated successfully").build();
 

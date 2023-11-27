@@ -19,7 +19,9 @@ import java.util.stream.Stream;
 @Data
 @Builder
 public class TransportMethods {
-    @Id @GeneratedValue(strategy = GenerationType.AUTO) @Column(name = "transport_method_id")
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "transport_method_id")
     private UUID transportMethodId;
     @Column(name = "transport_method_type", nullable = false, length = 60)
     private String transportMethodType;
@@ -28,5 +30,9 @@ public class TransportMethods {
 
     public boolean hasEmptyFields() {
         return transportMethodType == null || transportMethodType.isEmpty();
+    }
+
+    public void updateTransportMethod(TransportMethods transportMethods) {
+        this.transportMethodType = transportMethods.transportMethodType;
     }
 }

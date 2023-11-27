@@ -46,4 +46,16 @@ public class Users {
         return Stream.of(userName, userLastName, userEmail, userPassword, userPhone, userAddress, userCity, userCountry, userState)
                 .anyMatch(field -> field == null || field.isEmpty());
     }
+    public void updateUser(Users user) {
+        this.userName = user.userName;
+        this.userLastName = user.userLastName;
+        this.userEmail = user.userEmail;
+        this.userPassword = user.userPassword;
+        this.userPhone = user.userPhone;
+        this.userAddress = user.userAddress;
+        this.userCity = user.userCity;
+        this.userCountry = user.userCountry;
+        this.userState = user.userState;
+
+    }
 }

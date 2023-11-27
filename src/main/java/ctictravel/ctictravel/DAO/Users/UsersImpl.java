@@ -108,17 +108,11 @@ public class UsersImpl implements UsersInterfaces {
                  .getResultList();
             if (users.isEmpty())
                 return new CommunicationInterface.Builder().setSuccessful(false).setMessage("User not found").build();
-            Users existingUser = users.get(0);
-            existingUser.setUserName(user.getUserName());
-            existingUser.setUserLastName(user.getUserLastName());
-            existingUser.setUserEmail(user.getUserEmail());
-            existingUser.setUserPhone(user.getUserPhone());
-            existingUser.setUserAddress(user.getUserAddress());
-            existingUser.setUserCity(user.getUserCity());
-            existingUser.setUserCountry(user.getUserCountry());
-            existingUser.setUserState(user.getUserState());
             Argon2 argon2 = Argon2Factory.create(Argon2Factory.Argon2Types.ARGON2id);
             String hash = argon2.hash(1, 1024, 1, user.getUserPassword());
+            user.setUserPassword(hash);
+            Users existingUser = users.get(0);
+            existingUser.updateUser(user);
             entityManager.persist(existingUser);
             return new CommunicationInterface.Builder().setSuccessful(true).setMessage("User updated successfully").build();
         }catch (Exception e){

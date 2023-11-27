@@ -45,13 +45,11 @@ public class AdminsImpl implements AdminsInterfaces {
                     .getResultList();
             if (admins.isEmpty())
                 throw new Exception("Admin not found");
-            Admins existingAdmin = admins.get(0);
-            existingAdmin.setAdminName(admin.getAdminName());
-            existingAdmin.setAdminLastName(admin.getAdminLastName());
-            existingAdmin.setAdminPhone(admin.getAdminPhone());
             Argon2 argon2 = Argon2Factory.create(Argon2Factory.Argon2Types.ARGON2id);
             String hash = argon2.hash(1, 1024, 1, admin.getAdminPassword());
-            existingAdmin.setAdminPassword(hash);
+            admin.setAdminPassword(hash);
+            Admins existingAdmin = admins.get(0);
+            existingAdmin.updateAdmin(admin);
             entityManager.persist(existingAdmin);
             return new CommunicationInterface.Builder().setSuccessful(true).setMessage("Admin updated successfully").build();
         } catch (Exception e) {

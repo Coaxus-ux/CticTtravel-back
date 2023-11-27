@@ -1,0 +1,15 @@
+version: '3.8'
+services:
+  backend_java_citcd:
+    container_name: java_app_citcd
+    image: backend/java:1.0.0
+    build:
+      context: .
+    ports:
+      - "8082:8080"
+    networks:
+      - backend_citcd
+
+networks:
+  backend_citcd:
+    name: backend_citcd

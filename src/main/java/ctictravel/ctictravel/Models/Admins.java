@@ -37,4 +37,12 @@ public class Admins {
                 .anyMatch(field -> field == null || field.isEmpty());
     }
 
+    public void updateAdmin(Admins admin) {
+        this.adminName = admin.adminName;
+        this.adminLastName = admin.adminLastName;
+        this.adminEmail = admin.adminEmail;
+        this.adminPassword = admin.adminPassword;
+        this.adminPhone = admin.adminPhone;
+    }
+
 }
