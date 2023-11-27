@@ -26,4 +26,9 @@ public class TouristDestinationTouristPlans {
     @ManyToOne
     @JoinColumn(name = "tourist_plan_id", nullable = false)
     private TouristPlans touristPlan;
+
+    public boolean hasEmptyNullFields(){
+        return touristDestination == null || touristPlan == null || touristPlan.getTouristPlanId().toString().isEmpty() || touristDestination.getTouristDestinationId().toString().isEmpty();
+
+    }
 }

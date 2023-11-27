@@ -1,5 +1,7 @@
 package ctictravel.ctictravel.Models;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -9,6 +11,7 @@ import lombok.NoArgsConstructor;
 
 import java.util.Date;
 import java.util.UUID;
+import java.util.stream.Stream;
 
 
 @Entity
@@ -17,6 +20,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @Data
 @Builder
+
 public class Reservations {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -34,5 +38,9 @@ public class Reservations {
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private Users user;
+
+    public Boolean hasEmptyNullFields() {
+        return Stream.of(touristPlan, user).anyMatch(x -> x == null || x.toString().isEmpty());
+    }
 
 }

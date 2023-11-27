@@ -1,6 +1,7 @@
 package ctictravel.ctictravel.DAO.TouristPlans;
 
 import ctictravel.ctictravel.Interfaces.CommunicationInterface;
+import ctictravel.ctictravel.Models.Admins;
 import ctictravel.ctictravel.Models.TouristPlans;
 
 public interface TouristPlansInterfaces {
@@ -12,7 +13,7 @@ public interface TouristPlansInterfaces {
     CommunicationInterface desactivateTouristPlan(TouristPlans touristPlan);
     CommunicationInterface activateTouristPlan(TouristPlans touristPlan);
 
-    CommunicationInterface getTouristPlans();
+    CommunicationInterface getTouristPlans(Admins admin);
 
 
 }

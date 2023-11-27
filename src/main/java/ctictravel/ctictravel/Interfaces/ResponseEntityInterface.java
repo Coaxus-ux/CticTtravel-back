@@ -1,12 +1,15 @@
 package ctictravel.ctictravel.Interfaces;
 
-import java.util.List;
+
+
 import java.util.Map;
 
 public class ResponseEntityInterface {
+
     private Boolean isSuccessful;
     private String message;
     private String JWT;
+
     private Map<String, Object> data;
 
     private ResponseEntityInterface() {

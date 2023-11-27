@@ -1,0 +1,10 @@
+package ctictravel.ctictravel.DAO.TouristDestinationTouristPlans;
+
+import ctictravel.ctictravel.Interfaces.CommunicationInterface;
+import ctictravel.ctictravel.Models.TouristDestinationTouristPlans;
+
+public interface TouristDestinationTouristPlansInterfaces {
+    CommunicationInterface addTouristDestinationTouristPlans(TouristDestinationTouristPlans touristDestinationTouristPlans);
+    CommunicationInterface getTouristDestinationTouristPlansByTouristDestination(TouristDestinationTouristPlans touristDestinationTouristPlans);
+    CommunicationInterface getTouristDestinationTouristPlansByTouristPlan(TouristDestinationTouristPlans touristDestinationTouristPlans);
+}

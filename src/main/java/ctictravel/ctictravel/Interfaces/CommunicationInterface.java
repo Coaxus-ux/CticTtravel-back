@@ -1,8 +1,11 @@
 package ctictravel.ctictravel.Interfaces;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import java.util.*;
 
 public class CommunicationInterface {
+    @JsonBackReference
     private Boolean isSuccessful;
     private String message;
     private Map<String, Object> data;
