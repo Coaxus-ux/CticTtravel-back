@@ -1,12 +1,13 @@
 package ctictravel.ctictravel.Models;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -20,6 +21,10 @@ import java.util.UUID;
 @NoArgsConstructor
 @Data
 @Builder
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "touristPlanId"
+)
 public class TouristPlans {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -35,27 +40,30 @@ public class TouristPlans {
     private Date touristPlanStart;
     @Column(name = "tourist_plan_end", nullable = false, length = 160)
     private Date touristPlanEnd;
-    @Column(name = "tourist_plan_places", nullable = false, length = 160)
-    private String touristPlanPlaces;
     @Column(name = "is_available", nullable = false)
     private Boolean isAvailable;
 
     @ManyToOne
     @JoinColumn(name = "transport_method_id")
+    @ToString.Exclude
     private TransportMethods transportMethod;
 
     @ManyToOne
+
     @JoinColumn(name = "admin_id")
     private Admins admin;
 
     @OneToMany (mappedBy = "touristPlan")
+    @ToString.Exclude
     private List<Reservations> reservations;
 
 
     @OneToMany(mappedBy = "touristPlan")
+    @ToString.Exclude
     private List<TouristDestinationTouristPlans> touristDestinationTouristPlans;
 
     @OneToMany(mappedBy = "touristPlan")
+    @ToString.Exclude
     private List<AccommodationsTouristPlans> accommodationsTouristPlans;
 
     public boolean hasEmptyFields() {
@@ -64,8 +72,7 @@ public class TouristPlans {
                 touristPlanPrice == null || touristPlanPrice.compareTo(BigDecimal.ZERO) < 0 ||
                 touristPlanStart == null || touristPlanStart.after(touristPlanEnd) ||
                 touristPlanEnd == null || touristPlanEnd.before(touristPlanStart) ||
-                touristPlanPlaces == null || touristPlanPlaces.isEmpty() ||
-                transportMethod == null;
+                transportMethod == null || admin == null;
     }
     public void updateTouristPlan(TouristPlans touristPlan) {
         this.touristPlanName = touristPlan.getTouristPlanName();
@@ -73,7 +80,6 @@ public class TouristPlans {
         this.touristPlanPrice = touristPlan.getTouristPlanPrice();
         this.touristPlanStart = touristPlan.getTouristPlanStart();
         this.touristPlanEnd = touristPlan.getTouristPlanEnd();
-        this.touristPlanPlaces = touristPlan.getTouristPlanPlaces();
         this.transportMethod = touristPlan.getTransportMethod();
     }
     public void desactivateTouristPlan() {

@@ -1,5 +1,7 @@
 package ctictravel.ctictravel.Models;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -7,6 +9,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
 import java.util.UUID;
 import java.util.stream.Stream;
 
@@ -16,6 +19,10 @@ import java.util.stream.Stream;
 @NoArgsConstructor
 @Data
 @Builder
+@JsonIdentityInfo(
+        generator = com.fasterxml.jackson.annotation.ObjectIdGenerators.PropertyGenerator.class,
+        property = "adminId"
+)
 public class Admins {
     @Id @GeneratedValue(strategy = GenerationType.AUTO) @Column(name = "admin_id")
     private UUID adminId;
@@ -29,8 +36,10 @@ public class Admins {
     private String adminPassword;
     @Column(name = "admin_phone", nullable = false, length = 260)
     private String adminPhone;
+
+
     @OneToMany(mappedBy = "admin")
-    private java.util.List<TouristPlans> touristPlans;
+    private List<TouristPlans> touristPlans;
 
     public boolean hasEmptyNullFields() {
         return Stream.of(adminName, adminLastName, adminEmail, adminPassword, adminPhone)
