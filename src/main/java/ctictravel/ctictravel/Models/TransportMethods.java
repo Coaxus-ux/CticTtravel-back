@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Stream;
 
 @Entity
 @Table(name = "transport_methods")
@@ -24,4 +25,8 @@ public class TransportMethods {
     private String transportMethodType;
     @OneToMany(mappedBy = "transportMethod")
     private List<TouristPlans> touristPlans;
+
+    public boolean hasEmptyFields() {
+        return transportMethodType == null || transportMethodType.isEmpty();
+    }
 }

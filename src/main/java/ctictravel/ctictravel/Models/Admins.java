@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.UUID;
+import java.util.stream.Stream;
 
 @Entity
 @Table(name = "admins")
@@ -30,5 +31,10 @@ public class Admins {
     private String adminPhone;
     @OneToMany(mappedBy = "admin")
     private java.util.List<TouristPlans> touristPlans;
+
+    public boolean hasEmptyNullFields() {
+        return Stream.of(adminName, adminLastName, adminEmail, adminPassword, adminPhone)
+                .anyMatch(field -> field == null || field.isEmpty());
+    }
 
 }
