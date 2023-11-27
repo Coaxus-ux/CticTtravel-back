@@ -1,9 +1,6 @@
 package ctictravel.ctictravel.Utils;
 
-import ctictravel.ctictravel.Models.AtractivePlaces;
-import ctictravel.ctictravel.Models.Reservations;
-import ctictravel.ctictravel.Models.TouristDestination;
-import ctictravel.ctictravel.Models.TouristPlans;
+import ctictravel.ctictravel.Models.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -79,5 +76,23 @@ public class DTOUtils {
             atractivePlacesUser.put(ap.getAtractivePlaceId().toString(), atractivePlace);
         }
         return atractivePlacesUser;
+    }
+    public static Map<String, Object> convertTouristDestinationTouristPlansToMap(List<TouristDestinationTouristPlans> touristDestinationTouristPlans){
+        Map<String, Object> touristDestinationTouristPlansUser = new HashMap<>();
+        for (TouristDestinationTouristPlans t: touristDestinationTouristPlans){
+            Map<String, Object> touristDestinationTouristPlan = new HashMap<>();
+            touristDestinationTouristPlan.put("touristDestination", t.getTouristDestination().getTouristDestinationCountry());
+            touristDestinationTouristPlan.put("touristPlanName", t.getTouristPlan().getTouristPlanName());
+            touristDestinationTouristPlan.put("touristPlanDescription", t.getTouristPlan().getTouristPlanDescription());
+            touristDestinationTouristPlan.put("touristPlanPrice", t.getTouristPlan().getTouristPlanPrice());
+            touristDestinationTouristPlan.put("touristPlanStart", t.getTouristPlan().getTouristPlanStart());
+            touristDestinationTouristPlan.put("touristPlanEnd", t.getTouristPlan().getTouristPlanEnd());
+            touristDestinationTouristPlan.put("transportMethodType", t.getTouristPlan().getTransportMethod().getTransportMethodType());
+            touristDestinationTouristPlan.put("touristPlanCountry", t.getTouristPlan().getTouristPlanCountry());
+            touristDestinationTouristPlan.put("adminId", t.getTouristPlan().getAdmin().getAdminId());
+            touristDestinationTouristPlan.put("touristDestinationTouristPlanId", t.getTouristDestinationTouristPlanId());
+            touristDestinationTouristPlansUser.put(t.getTouristDestinationTouristPlanId().toString(), touristDestinationTouristPlan);
+        }
+        return touristDestinationTouristPlansUser;
     }
 }

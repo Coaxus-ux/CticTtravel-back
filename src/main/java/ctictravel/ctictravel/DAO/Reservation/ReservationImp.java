@@ -11,7 +11,7 @@ import java.util.List;
 
 @Repository
 @Transactional
-public class ReservationImp implements ReservationInterfases{
+public class ReservationImp implements ReservationInterfaces {
     @PersistenceContext
     EntityManager entityManager;
 

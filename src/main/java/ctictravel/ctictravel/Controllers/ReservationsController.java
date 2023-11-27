@@ -1,7 +1,7 @@
 package ctictravel.ctictravel.Controllers;
 
 
-import ctictravel.ctictravel.DAO.Reservation.ReservationInterfases;
+import ctictravel.ctictravel.DAO.Reservation.ReservationInterfaces;
 import ctictravel.ctictravel.Interfaces.CommunicationInterface;
 import ctictravel.ctictravel.Interfaces.ResponseEntityInterface;
 import ctictravel.ctictravel.Models.Reservations;
@@ -18,7 +18,7 @@ import java.util.stream.Stream;
 @RequestMapping("/reservations")
 public class ReservationsController {
     @Autowired
-    private ReservationInterfases reservationInterfases;
+    private ReservationInterfaces reservationInterfaces;
 
     @PostMapping(value = "/add", consumes = "application/json", produces = "application/json")
     public ResponseEntity<ResponseEntityInterface> addReservation(@RequestBody Reservations reservation) {
@@ -26,7 +26,7 @@ public class ReservationsController {
         if (reservation.hasEmptyNullFields())
             return ResponseEntity.status(400).body(new ResponseEntityInterface.Builder().setSuccessful(false).setMessage("Missing parameters").build());
 
-        CommunicationInterface response = reservationInterfases.addReservation(reservation);
+        CommunicationInterface response = reservationInterfaces.addReservation(reservation);
         if (!response.getSuccessful())
             return ResponseEntity.status(400).body(new ResponseEntityInterface.Builder().setSuccessful(false).setMessage(response.getMessage()).build());
         return ResponseEntity.status(200).body(new ResponseEntityInterface.Builder().setSuccessful(true).setMessage("Reservation created successfully").build());
@@ -37,7 +37,7 @@ public class ReservationsController {
         if (Stream.of(reservation.getReservationId()).anyMatch(x -> x == null || x.toString().isEmpty()))
             return ResponseEntity.status(400).body(new ResponseEntityInterface.Builder().setSuccessful(false).setMessage("Missing parameters").build());
 
-        CommunicationInterface response = reservationInterfases.cancelReservation(reservation);
+        CommunicationInterface response = reservationInterfaces.cancelReservation(reservation);
         if (!response.getSuccessful())
             return ResponseEntity.status(400).body(new ResponseEntityInterface.Builder().setSuccessful(false).setMessage(response.getMessage()).build());
         return ResponseEntity.status(200).body(new ResponseEntityInterface.Builder().setSuccessful(true).setMessage("Reservation cancelled successfully").build());
@@ -48,7 +48,7 @@ public class ReservationsController {
         if (Stream.of(reservation.getUser()).anyMatch(x -> x == null || x.toString().isEmpty()))
             return ResponseEntity.status(400).body(new ResponseEntityInterface.Builder().setSuccessful(false).setMessage("Missing parameters").build());
 
-        CommunicationInterface response = reservationInterfases.getReservations(reservation);
+        CommunicationInterface response = reservationInterfaces.getReservations(reservation);
         if (!response.getSuccessful())
             return ResponseEntity.status(400).body(new ResponseEntityInterface.Builder().setSuccessful(false).setMessage(response.getMessage()).build());
         return ResponseEntity.status(200).body(new ResponseEntityInterface.Builder().setSuccessful(true).setMessage("Reservations retrieved successfully").setData(response.getData()).build());
@@ -57,7 +57,7 @@ public class ReservationsController {
     public ResponseEntity<ResponseEntityInterface> getReservationsByTouristPlan(@RequestBody Reservations reservation) {
         if (Stream.of(reservation.getTouristPlan()).anyMatch(x -> x == null || x.toString().isEmpty()))
             return ResponseEntity.status(400).body(new ResponseEntityInterface.Builder().setSuccessful(false).setMessage("Missing parameters").build());
-        CommunicationInterface response = reservationInterfases.getReservationsByTouristPlan(reservation);
+        CommunicationInterface response = reservationInterfaces.getReservationsByTouristPlan(reservation);
         if (!response.getSuccessful())
             return ResponseEntity.status(400).body(new ResponseEntityInterface.Builder().setSuccessful(false).setMessage(response.getMessage()).build());
         return ResponseEntity.status(200).body(new ResponseEntityInterface.Builder().setSuccessful(true).setMessage("Reservations retrieved successfully").setData(response.getData()).build());

@@ -61,7 +61,6 @@ public class AtractivePlacesImp implements AtractivePlacesInterfaces {
             return new CommunicationInterface.Builder().setSuccessful(false).setMessage(e.getMessage()).build();
         }
     }
-
     @Override
     public CommunicationInterface updateAtractivePlace(AtractivePlaces atractivePlace) {
         try {
