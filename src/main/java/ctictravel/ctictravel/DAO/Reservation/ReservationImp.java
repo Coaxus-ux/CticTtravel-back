@@ -1,5 +1,5 @@
 package ctictravel.ctictravel.DAO.Reservation;
-import ctictravel.ctictravel.Utils.ReservationUtils;
+import ctictravel.ctictravel.Utils.DTOUtils;
 import ctictravel.ctictravel.Interfaces.CommunicationInterface;
 import ctictravel.ctictravel.Models.Reservations;
 import jakarta.persistence.EntityManager;
@@ -7,9 +7,7 @@ import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Repository;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Repository
 @Transactional
@@ -58,7 +56,7 @@ public class ReservationImp implements ReservationInterfases{
             if (existingReservation.isEmpty())
                 return new CommunicationInterface.Builder().setSuccessful(false).setMessage("Reservation not found").build();
 
-            return new CommunicationInterface.Builder().setSuccessful(true).setMessage("Reservation found").setData(ReservationUtils.convertReservationsToMap(existingReservation)).build();
+            return new CommunicationInterface.Builder().setSuccessful(true).setMessage("Reservation found").setData(DTOUtils.convertReservationToMap(existingReservation)).build();
         }catch (Exception e){
             return new CommunicationInterface.Builder().setSuccessful(false).setMessage(e.getMessage()).build();
         }
@@ -73,7 +71,7 @@ public class ReservationImp implements ReservationInterfases{
             if (existingReservation.isEmpty())
                 return new CommunicationInterface.Builder().setSuccessful(false).setMessage("Reservation not found").build();
 
-            return new CommunicationInterface.Builder().setSuccessful(true).setMessage("Reservation found").setData(ReservationUtils.convertReservationsToMap(existingReservation)).build();
+            return new CommunicationInterface.Builder().setSuccessful(true).setMessage("Reservation found").setData(DTOUtils.convertReservationToMap(existingReservation)).build();
         }catch (Exception e){
             return new CommunicationInterface.Builder().setSuccessful(false).setMessage(e.getMessage()).build();
         }

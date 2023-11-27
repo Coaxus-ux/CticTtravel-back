@@ -21,8 +21,8 @@ public class TouristDestination {
     private UUID touristDestinationId;
     @Column(name = "tourist_destination_country", nullable = false, length = 150)
     private String touristDestinationCountry;
-    @Column(name = "tourist_destination_city", nullable = false, length = 150)
-    private String touristDestinationCity;
+    @Column(name = "tourist_destination_state", nullable = false, length = 150)
+    private String touristDestinationState;
 
     @OneToMany(mappedBy = "touristDestination")
     private List<AtractivePlaces> atractivePlaces;

@@ -43,6 +43,9 @@ public class TouristPlans {
     @Column(name = "is_available", nullable = false)
     private Boolean isAvailable;
 
+    @Column(name = "tourist_plan_country", nullable = false ,length = 150)
+    private String touristPlanCountry;
+
     @ManyToOne
     @JoinColumn(name = "transport_method_id")
     @ToString.Exclude
@@ -72,6 +75,7 @@ public class TouristPlans {
                 touristPlanPrice == null || touristPlanPrice.compareTo(BigDecimal.ZERO) < 0 ||
                 touristPlanStart == null || touristPlanStart.after(touristPlanEnd) ||
                 touristPlanEnd == null || touristPlanEnd.before(touristPlanStart) ||
+                touristPlanCountry == null || touristPlanCountry.isEmpty() ||
                 transportMethod == null || admin == null;
     }
     public void updateTouristPlan(TouristPlans touristPlan) {

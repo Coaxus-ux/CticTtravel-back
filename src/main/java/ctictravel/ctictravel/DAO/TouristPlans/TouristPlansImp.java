@@ -3,12 +3,12 @@ package ctictravel.ctictravel.DAO.TouristPlans;
 import ctictravel.ctictravel.Interfaces.CommunicationInterface;
 import ctictravel.ctictravel.Models.Admins;
 import ctictravel.ctictravel.Models.TouristPlans;
+import ctictravel.ctictravel.Utils.DTOUtils;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -61,17 +61,7 @@ public class TouristPlansImp implements TouristPlansInterfaces {
             if (availableTouristPlans.isEmpty())
                 return new CommunicationInterface.Builder().setSuccessful(false).setMessage("Tourist plan not found").build();
             TouristPlans existingTouristPlan = availableTouristPlans.get(0);
-            Map<String, Object> touristPlanData = new HashMap<>();
-            touristPlanData.put("touristPlanId", existingTouristPlan.getTouristPlanId());
-            touristPlanData.put("touristPlanName", existingTouristPlan.getTouristPlanName());
-            touristPlanData.put("touristPlanDescription", existingTouristPlan.getTouristPlanDescription());
-            touristPlanData.put("touristPlanPrice", existingTouristPlan.getTouristPlanPrice());
-            touristPlanData.put("touristPlanStart", existingTouristPlan.getTouristPlanStart());
-            touristPlanData.put("touristPlanEnd", existingTouristPlan.getTouristPlanEnd());
-            touristPlanData.put("isAvailable", existingTouristPlan.getIsAvailable());
-            touristPlanData.put("transportMethod", existingTouristPlan.getTransportMethod().getTransportMethodType());
-
-            return new CommunicationInterface.Builder().setSuccessful(true).setMessage("Tourist plan found").setData(touristPlanData).build();
+            return new CommunicationInterface.Builder().setSuccessful(true).setMessage("Tourist plan found").setData(DTOUtils.convertTouristToMap(availableTouristPlans)).build();
         } catch (Exception e) {
             return new CommunicationInterface.Builder().setSuccessful(false).setMessage(e.getMessage()).build();
         }
@@ -119,25 +109,7 @@ public class TouristPlansImp implements TouristPlansInterfaces {
                     .getResultList();
             if (availableTouristPlans.isEmpty())
                 return new CommunicationInterface.Builder().setSuccessful(false).setMessage("Tourist plan not found").build();
-
-            Map<String, Object> plansData = new HashMap<>();
-            for (TouristPlans plan : availableTouristPlans) {
-                Map<String, Object> planData = new HashMap<>();
-                planData.put("touristPlanId", plan.getTouristPlanId());
-                planData.put("touristPlanName", plan.getTouristPlanName());
-                planData.put("touristPlanDescription", plan.getTouristPlanDescription());
-                planData.put("touristPlanPrice", plan.getTouristPlanPrice());
-                planData.put("touristPlanStart", plan.getTouristPlanStart());
-                planData.put("touristPlanEnd", plan.getTouristPlanEnd());
-                planData.put("isAvailable", plan.getIsAvailable());
-                planData.put("transportMethod", plan.getTransportMethod().getTransportMethodType());
-                plansData.put(plan.getTouristPlanId().toString(), planData);
-            }
-
-
-
-
-            return new CommunicationInterface.Builder().setSuccessful(true).setMessage("Tourist plan found").setData(plansData).build();
+            return new CommunicationInterface.Builder().setSuccessful(true).setMessage("Tourist plan found").setData(DTOUtils.convertTouristToMap(availableTouristPlans)).build();
         } catch (Exception e) {
             return new CommunicationInterface.Builder().setSuccessful(false).setMessage(e.getMessage()).build();
         }

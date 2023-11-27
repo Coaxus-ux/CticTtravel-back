@@ -23,10 +23,14 @@ public class TransportMethodsImp implements TransportMethodsInterface {
         if (transportMethods.isEmpty()){
             return new CommunicationInterface.Builder().setSuccessful(false).setMessage("Transport Method not found").build();
         }
-        Map<String, Object> data = new HashMap<>();
-        data.put("transportMethods", transportMethods);
+        Map<String, Object> transportMethodsDB = new HashMap<>();
+        for (TransportMethods transport : transportMethods) {
+            Map<String, Object> transportMethod = new HashMap<>();
+            transportMethod.put("transportMethodType", transport.getTransportMethodType());
+            transportMethodsDB.put(transport.getTransportMethodId().toString(), transportMethod);
+        }
 
-        return new CommunicationInterface.Builder().setSuccessful(true).setMessage("Transport Method found").setData(data).build();
+        return new CommunicationInterface.Builder().setSuccessful(true).setMessage("Transport Method found").setData(transportMethodsDB).build();
     }
 
     @Override
