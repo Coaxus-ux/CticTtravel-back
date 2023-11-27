@@ -24,7 +24,7 @@ public class AdminsController {
 
     @PostMapping(value = "/register", consumes = "application/json", produces = "application/json")
     public ResponseEntity<ResponseEntityInterface> registerAdmin(@RequestBody Admins admin) {
-        if (Stream.of(admin.getAdminEmail(), admin.getAdminName(), admin.getAdminLastName()).anyMatch(Objects::isNull))
+        if (admin.hasEmptyNullFields())
             return ResponseEntity.status(400).body(new ResponseEntityInterface.Builder().setSuccessful(false).setMessage("Missing parameters").build());
 
         CommunicationInterface response = adminsInterfaces.createAdmin(admin);
@@ -35,7 +35,7 @@ public class AdminsController {
 
     @PostMapping(value = "/login", consumes = "application/json", produces = "application/json")
     public ResponseEntity<ResponseEntityInterface> loginAdmin(@RequestBody Admins admin) {
-        if (Stream.of(admin.getAdminEmail(), admin.getAdminPassword()).anyMatch(Objects::isNull))
+        if (Stream.of(admin.getAdminEmail(), admin.getAdminPassword()).anyMatch(value -> value == null || value.isEmpty()))
             return ResponseEntity.status(400).body(new ResponseEntityInterface.Builder().setSuccessful(false).setMessage("Missing parameters").build());
 
         CommunicationInterface response = adminsInterfaces.loginAdmin(admin);
@@ -48,7 +48,7 @@ public class AdminsController {
     @PutMapping(value = "/update", consumes = "application/json", produces = "application/json")
     public ResponseEntity<ResponseEntityInterface> updateAdmin(@RequestBody Admins admin) {
 
-        if (Stream.of(admin.getAdminEmail(), admin.getAdminPassword()).anyMatch(Objects::isNull))
+        if(admin.hasEmptyNullFields())
             return ResponseEntity.status(400).body(new ResponseEntityInterface.Builder().setSuccessful(false).setMessage("Missing parameters").build());
 
         CommunicationInterface response = adminsInterfaces.updateAdmin(admin);

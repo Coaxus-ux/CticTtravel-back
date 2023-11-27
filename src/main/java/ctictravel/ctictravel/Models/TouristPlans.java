@@ -57,4 +57,29 @@ public class TouristPlans {
 
     @OneToMany(mappedBy = "touristPlan")
     private List<AccommodationsTouristPlans> accommodationsTouristPlans;
+
+    public boolean hasEmptyFields() {
+        return touristPlanName == null || touristPlanName.isEmpty() ||
+                touristPlanDescription == null || touristPlanDescription.isEmpty() ||
+                touristPlanPrice == null || touristPlanPrice.compareTo(BigDecimal.ZERO) < 0 ||
+                touristPlanStart == null || touristPlanStart.after(touristPlanEnd) ||
+                touristPlanEnd == null || touristPlanEnd.before(touristPlanStart) ||
+                touristPlanPlaces == null || touristPlanPlaces.isEmpty() ||
+                transportMethod == null;
+    }
+    public void updateTouristPlan(TouristPlans touristPlan) {
+        this.touristPlanName = touristPlan.getTouristPlanName();
+        this.touristPlanDescription = touristPlan.getTouristPlanDescription();
+        this.touristPlanPrice = touristPlan.getTouristPlanPrice();
+        this.touristPlanStart = touristPlan.getTouristPlanStart();
+        this.touristPlanEnd = touristPlan.getTouristPlanEnd();
+        this.touristPlanPlaces = touristPlan.getTouristPlanPlaces();
+        this.transportMethod = touristPlan.getTransportMethod();
+    }
+    public void desactivateTouristPlan() {
+        this.isAvailable = false;
+    }
+    public void activateTouristPlan() {
+        this.isAvailable = true;
+    }
 }

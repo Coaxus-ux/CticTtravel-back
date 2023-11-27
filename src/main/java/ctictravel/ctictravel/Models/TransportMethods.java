@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Stream;
 
 @Entity
 @Table(name = "transport_methods")
@@ -18,10 +19,20 @@ import java.util.UUID;
 @Data
 @Builder
 public class TransportMethods {
-    @Id @GeneratedValue(strategy = GenerationType.AUTO) @Column(name = "transport_method_id")
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "transport_method_id")
     private UUID transportMethodId;
     @Column(name = "transport_method_type", nullable = false, length = 60)
     private String transportMethodType;
     @OneToMany(mappedBy = "transportMethod")
     private List<TouristPlans> touristPlans;
+
+    public boolean hasEmptyFields() {
+        return transportMethodType == null || transportMethodType.isEmpty();
+    }
+
+    public void updateTransportMethod(TransportMethods transportMethods) {
+        this.transportMethodType = transportMethods.transportMethodType;
+    }
 }

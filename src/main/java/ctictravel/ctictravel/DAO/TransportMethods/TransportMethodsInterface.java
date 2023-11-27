@@ -1,14 +1,13 @@
 package ctictravel.ctictravel.DAO.TransportMethods;
 
-import ctictravel.ctictravel.Interfaces.ResponseEntityInterface;
+import ctictravel.ctictravel.Interfaces.CommunicationInterface;
+
 import ctictravel.ctictravel.Models.TransportMethods;
 
-import java.util.UUID;
-
 public interface TransportMethodsInterface {
-    ResponseEntityInterface getTransportMethods();
+    CommunicationInterface getTransportMethods();
 
-    ResponseEntityInterface createTransportMethod(String transportMethodType);
+    CommunicationInterface createTransportMethod(String transportMethodType);
 
-    ResponseEntityInterface updateTransportMethod(TransportMethods transportMethods);
+    CommunicationInterface updateTransportMethod(TransportMethods transportMethods);
 }
