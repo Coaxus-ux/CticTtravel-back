@@ -20,6 +20,8 @@ public class AccommodationTypes {
     private UUID accommodationTypeId;
     @Column(name = "accommodation_type_name" , nullable = false)
     private String accommodationTypeName;
+    @Column(name = "accommodation_type_rooms" , nullable = false)
+    private Integer accommodationTypeRooms;
 
     @OneToMany(mappedBy = "accommodationType")
     private List<Accommodations> accommodations;
