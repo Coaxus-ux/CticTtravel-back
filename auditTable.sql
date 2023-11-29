@@ -73,11 +73,3 @@ FOR EACH ROW EXECUTE FUNCTION register_change();
 CREATE TRIGGER trigger_register_change_transport_methods
 AFTER INSERT OR UPDATE OR DELETE ON transport_methods
 FOR EACH ROW EXECUTE FUNCTION register_change();
-
-ALTER TABLE accommodations
-ALTER COLUMN "accommodation_check-in_schedule" TYPE time(6)
-USING "accommodation_check-in_schedule"::time without time zone;
-
-ALTER TABLE accommodations
-ALTER COLUMN "accommodation_check-out_schedule" TYPE time(6)
-USING "accommodation_check-out_schedule"::time without time zone;

@@ -8,11 +8,6 @@ pipeline {
         }
         stage('Build') {
             steps {
-                sh "mvn clean install"
-            }
-        }
-	stage('Create Docker and Up docker-compose') {
-            steps {
                 sh "docker-compose down"
                 sh "docker-compose up -d"
             }
