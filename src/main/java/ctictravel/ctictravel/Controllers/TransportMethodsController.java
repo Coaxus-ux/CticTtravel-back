@@ -30,6 +30,7 @@ public class TransportMethodsController {
 
     @PostMapping(value = "/create", consumes = "application/json", produces = "application/json")
     public ResponseEntity<ResponseEntityInterface> createTransportMethod(@RequestBody TransportMethods transportMethods) {
+        System.out.println(transportMethods);
         if(Stream.of(transportMethods.getTransportMethodType()).anyMatch(value -> value == null || value.isEmpty()))
             return ResponseEntity.status(400).body(new ResponseEntityInterface.Builder().setSuccessful(false).setMessage("Missing parameters").build());
         try {

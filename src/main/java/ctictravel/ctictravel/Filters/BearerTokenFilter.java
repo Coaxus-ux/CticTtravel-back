@@ -11,17 +11,31 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.util.UrlPathHelper;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 
 @Component
 public class BearerTokenFilter extends OncePerRequestFilter {
-    private  boolean isProtected(String path){
-        return path.equals("/admins/update") || path.startsWith("/api/v1/");
+    private boolean isProtected(String path) {
+        /*List<String> protectedPaths = Arrays.asList(
+                "/admins/login",
+                "/admins/register",
+                "/users/register",
+                "/users/login"
+        );*/
+       List<String> protectedPaths = Arrays.asList(
+               "/none",
+               "/admins/ninguna"
+       );
+
+        return protectedPaths.stream().anyMatch(path::startsWith);
     }
+
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String authorizationHeader = request.getHeader("Authorization");
         String path = new UrlPathHelper().getPathWithinApplication(request);
-        if(!isProtected(path)){
+        if (!isProtected(path)) {
             filterChain.doFilter(request, response);
             return;
         }
@@ -37,7 +51,7 @@ public class BearerTokenFilter extends OncePerRequestFilter {
                 response.getWriter().write("Unauthorized");
                 return;
             }
-        }else{
+        } else {
             response.setStatus(401);
             response.getWriter().write("Unauthorized");
             return;

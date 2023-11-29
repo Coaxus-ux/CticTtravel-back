@@ -63,7 +63,7 @@ public class AccommodationsImpl implements AccommodationsInterfaces{
     @Override
     public CommunicationInterface createAccommodation(Accommodations accommodation) {
         try {
-            List<Accommodations> availableAccommodations = entityManager.createQuery("SELECT a FROM Accommodations a WHERE a.accommodationName = :accommodationName AND a.accommodationCountry = :country AND a.accommodationCity = :city AND a.accommodationState = :state", Accommodations.class)
+            List<Accommodations> availableAccommodations = entityManager.createQuery("SELECT a FROM Accommodations a WHERE UPPER(a.accommodationName) = UPPER(:accommodationName) AND a.accommodationCountry = :country AND a.accommodationCity = :city AND a.accommodationState = :state", Accommodations.class)
                     .setParameter("accommodationName", accommodation.getAccommodationName())
                     .setParameter("country", accommodation.getAccommodationCountry())
                     .setParameter("city", accommodation.getAccommodationCity())

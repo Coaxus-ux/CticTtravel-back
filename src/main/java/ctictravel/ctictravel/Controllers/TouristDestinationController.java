@@ -6,10 +6,7 @@ import ctictravel.ctictravel.Interfaces.ResponseEntityInterface;
 import ctictravel.ctictravel.Models.TouristDestination;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.stream.Stream;
 
@@ -21,7 +18,7 @@ public class TouristDestinationController {
 
     @PostMapping(value = "/getTouristDestinations", consumes = "application/json", produces = "application/json")
     public ResponseEntity<ResponseEntityInterface> getTouristDestinations(@RequestBody TouristDestination touristDestination) {
-        if (Stream.of(touristDestination.getTouristDestinationCountry(), touristDestination.getTouristDestinationState()).anyMatch(value -> value == null || value.isEmpty()))
+        if (Stream.of(touristDestination.getTouristDestinationCountry()).anyMatch(value -> value == null || value.isEmpty()))
             return ResponseEntity.status(400).body(new ResponseEntityInterface.Builder().setSuccessful(false).setMessage("Missing parameters").build());
 
         CommunicationInterface response = touristDestinationsInterfaces.getTouristDestinations(touristDestination);
@@ -58,6 +55,13 @@ public class TouristDestinationController {
         if (!response.getSuccessful())
             return ResponseEntity.status(400).body(new ResponseEntityInterface.Builder().setSuccessful(false).setMessage(response.getMessage()).build());
         return ResponseEntity.status(200).body(new ResponseEntityInterface.Builder().setSuccessful(true).setMessage("Tourist destination updated successfully").build());
+    }
+    @GetMapping(value = "/getAllTouristDestinations", produces = "application/json")
+    public ResponseEntity<ResponseEntityInterface> getAllTouristDestinations() {
+        CommunicationInterface response = touristDestinationsInterfaces.getAllTouristDestinations();
+        if (!response.getSuccessful())
+            return ResponseEntity.status(400).body(new ResponseEntityInterface.Builder().setSuccessful(false).setMessage(response.getMessage()).build());
+        return ResponseEntity.status(200).body(new ResponseEntityInterface.Builder().setSuccessful(true).setMessage("Tourist destination found").setData(response.getData()).build());
     }
 
 }

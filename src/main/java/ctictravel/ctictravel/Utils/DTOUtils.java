@@ -120,6 +120,8 @@ public class DTOUtils {
                 accommodationType.put("accommodationCountry", a.getAccommodationCountry());
                 accommodationType.put("accommodationCity", a.getAccommodationCity());
                 accommodationType.put("accommodationType", a.getAccommodationType().getAccommodationTypeName());
+                accommodationType.put("accommodationTypeRomms", a.getAccommodationType().getAccommodationTypeRooms());
+                accommodationType.put("accommodationState", a.getAccommodationState());
                 accommodation.put(a.getAccommodationId().toString(), accommodationType);
             }
             return accommodation;

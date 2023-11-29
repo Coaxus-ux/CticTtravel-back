@@ -88,6 +88,21 @@ public class TouristPlansController {
         }
     }
 
+    @PostMapping(value = "/get-all-admin", produces = "application/json")
+    public ResponseEntity<CommunicationInterface> getAllTouristPlanPlaces(@RequestBody TouristPlans touristPlan) {
+
+        try {
+            CommunicationInterface response = touristPlansInterface.getAllTouristPlans(touristPlan.getAdmin());
+
+            if (!response.getSuccessful())
+                return ResponseEntity.status(400).body(new CommunicationInterface.Builder().setSuccessful(false).setMessage(response.getMessage()).build());
+
+            return ResponseEntity.status(200).body(new CommunicationInterface.Builder().setSuccessful(true).setMessage("Some places were found").setData(response.getData()).build());
+        } catch (Exception e) {
+            return ResponseEntity.status(400).body(new CommunicationInterface.Builder().setSuccessful(false).setMessage(e.getMessage()).build());
+        }
+    }
+
 
     @PostMapping(value = "/get-by-id", produces = "application/json")
     public ResponseEntity<CommunicationInterface> getTouristPlanById(@RequestBody TouristPlans touristPlan) {

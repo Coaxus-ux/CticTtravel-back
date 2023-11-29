@@ -47,7 +47,7 @@ public class AtractivePlacesImp implements AtractivePlacesInterfaces {
     @Override
     public CommunicationInterface createAtractivePlace(AtractivePlaces atractivePlace) {
         try {
-            List<AtractivePlaces> existingAtractivePlace = entityManager.createQuery("SELECT a FROM AtractivePlaces a WHERE a.atractivePlaceCountry = :country AND a.atractivePlaceState = :state AND a.atractivePlaceCity = :city AND a.atractivePlaceName = :name", AtractivePlaces.class)
+            List<AtractivePlaces> existingAtractivePlace = entityManager.createQuery("SELECT a FROM AtractivePlaces a WHERE a.atractivePlaceCountry = :country AND a.atractivePlaceState = :state AND a.atractivePlaceCity = :city AND UPPER(a.atractivePlaceName) = UPPER(:name) ", AtractivePlaces.class)
                     .setParameter("country", atractivePlace.getAtractivePlaceCountry())
                     .setParameter("state", atractivePlace.getAtractivePlaceState())
                     .setParameter("city", atractivePlace.getAtractivePlaceCity())

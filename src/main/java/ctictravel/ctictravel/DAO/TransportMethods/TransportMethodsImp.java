@@ -36,7 +36,7 @@ public class TransportMethodsImp implements TransportMethodsInterface {
     @Override
     public CommunicationInterface createTransportMethod(String transportMethodType) {
         System.out.println(transportMethodType);
-        List <TransportMethods> transportMethods = entityManager.createQuery("SELECT t FROM TransportMethods t WHERE t.transportMethodType = :transportMethodType", TransportMethods.class)
+        List <TransportMethods> transportMethods = entityManager.createQuery("SELECT t FROM TransportMethods t WHERE UPPER(t.transportMethodType) = UPPER(:transportMethodType) ", TransportMethods.class)
                 .setParameter("transportMethodType", transportMethodType)
                 .getResultList();
         if (!transportMethods.isEmpty())

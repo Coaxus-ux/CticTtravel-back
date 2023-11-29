@@ -22,7 +22,7 @@ public class AtractivePlaces {
     private UUID atractivePlaceId;
     @Column(name = "atractive_place_name", nullable = false, length = 150)
     private String atractivePlaceName;
-    @Column(name = "atractive_place_description", nullable = false, length = 150)
+    @Column(name = "atractive_place_description", nullable = false, length = 350)
     private String atractivePlaceDescription;
     @Column(name = "atractive_place_country", nullable = false, length = 150)
     private String atractivePlaceCountry;

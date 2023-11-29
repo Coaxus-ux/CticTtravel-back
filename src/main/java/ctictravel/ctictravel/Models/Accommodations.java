@@ -28,11 +28,9 @@ public class Accommodations {
     @Column(name = "accommodation_price" , nullable = false)
     private BigDecimal accommodationPrice;
     @Column(name = "accommodation_check-in_schedule" , nullable = false)
-    @JsonFormat(pattern = "HH:mm:ss")
-    private LocalTime accommodationCheckInSchedule;
+    private String accommodationCheckInSchedule;
     @Column(name = "accommodation_check-out_schedule" , nullable = false)
-    @JsonFormat(pattern = "HH:mm:ss")
-    private LocalTime accommodationCheckOutSchedule;
+    private String accommodationCheckOutSchedule;
     @Column(name = "accommodation_country" , nullable = false)
     private String accommodationCountry;
     @Column(name = "accommodation_city" , nullable = false)
