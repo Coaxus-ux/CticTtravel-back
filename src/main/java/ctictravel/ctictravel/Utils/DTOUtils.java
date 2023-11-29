@@ -95,4 +95,62 @@ public class DTOUtils {
         }
         return touristDestinationTouristPlansUser;
     }
+      public static Map<String, Object> convertAccommodationTypesToMap(List<AccommodationTypes> accommodationTypes) {
+          Map<String, Object> touristDestinationTouristPlansUser = new HashMap<>();
+            for (AccommodationTypes a : accommodationTypes) {
+                Map<String, Object> accommodationType = new HashMap<>();
+                accommodationType.put("accommodationTypeId", a.getAccommodationTypeId());
+                accommodationType.put("accommodationTypeName", a.getAccommodationTypeName());
+                accommodationType.put("accommodationTypeRooms", a.getAccommodationTypeRooms());
+                touristDestinationTouristPlansUser.put(a.getAccommodationTypeId().toString(), accommodationType);
+            }
+            return touristDestinationTouristPlansUser;
+      }
+
+      public static Map<String, Object> convertAccommodationToMap(List<Accommodations> accommodations) {
+          Map<String, Object> accommodation = new HashMap<>();
+            for (Accommodations a : accommodations) {
+                Map<String, Object> accommodationType = new HashMap<>();
+                accommodationType.put("accommodationId", a.getAccommodationId());
+                accommodationType.put("accommodationName", a.getAccommodationName());
+                accommodationType.put("accommodationAddress", a.getAccommodationAddress());
+                accommodationType.put("accommodationPrice", a.getAccommodationPrice());
+                accommodationType.put("accommodationCheckInSchedule", a.getAccommodationCheckInSchedule());
+                accommodationType.put("accommodationCheckOutSchedule", a.getAccommodationCheckOutSchedule());
+                accommodationType.put("accommodationCountry", a.getAccommodationCountry());
+                accommodationType.put("accommodationCity", a.getAccommodationCity());
+                accommodationType.put("accommodationType", a.getAccommodationType().getAccommodationTypeName());
+                accommodationType.put("accommodationTypeRomms", a.getAccommodationType().getAccommodationTypeRooms());
+                accommodationType.put("accommodationState", a.getAccommodationState());
+                accommodation.put(a.getAccommodationId().toString(), accommodationType);
+            }
+            return accommodation;
+      }
+      public static Map<String, Object> convertAccommodationsTouristPlansToMap(List<AccommodationsTouristPlans> accommodationsTouristPlans) {
+          Map<String, Object> accommodations = new HashMap<>();
+          for (AccommodationsTouristPlans ap: accommodationsTouristPlans){
+              Map<String, Object> accommodation = new HashMap<>();
+                accommodation.put("accommodationId", ap.getAccommodation().getAccommodationId());
+                accommodation.put("accommodationName", ap.getAccommodation().getAccommodationName());
+                accommodation.put("accommodationAddress", ap.getAccommodation().getAccommodationAddress());
+                accommodation.put("accommodationPrice", ap.getAccommodation().getAccommodationPrice());
+                accommodation.put("accommodationCheckInSchedule", ap.getAccommodation().getAccommodationCheckInSchedule());
+                accommodation.put("accommodationCheckOutSchedule", ap.getAccommodation().getAccommodationCheckOutSchedule());
+                accommodation.put("accommodationCountry", ap.getAccommodation().getAccommodationCountry());
+                accommodation.put("accommodationCity", ap.getAccommodation().getAccommodationCity());
+                accommodation.put("accommodationType", ap.getAccommodation().getAccommodationType().getAccommodationTypeName());
+                accommodation.put("touristPlanId", ap.getTouristPlan().getTouristPlanId());
+                accommodation.put("touristPlanName", ap.getTouristPlan().getTouristPlanName());
+                accommodation.put("touristPlanDescription", ap.getTouristPlan().getTouristPlanDescription());
+                accommodation.put("touristPlanPrice", ap.getTouristPlan().getTouristPlanPrice());
+                accommodation.put("touristPlanStart", ap.getTouristPlan().getTouristPlanStart());
+                accommodation.put("touristPlanEnd", ap.getTouristPlan().getTouristPlanEnd());
+                accommodation.put("transportMethodType", ap.getTouristPlan().getTransportMethod().getTransportMethodType());
+                accommodation.put("touristPlanCountry", ap.getTouristPlan().getTouristPlanCountry());
+                accommodation.put("adminId", ap.getTouristPlan().getAdmin().getAdminId());
+                accommodation.put("accommodationsTouristPlanId", ap.getAccommodationsTouristPlanId());
+                accommodations.put(ap.getAccommodationsTouristPlanId().toString(), accommodation);
+          }
+            return accommodations;
+    }
 }

@@ -15,5 +15,7 @@ public interface TouristPlansInterfaces {
 
     CommunicationInterface getTouristPlans(Admins admin);
 
+    CommunicationInterface getAllTouristPlans(Admins admin);
+
 
 }

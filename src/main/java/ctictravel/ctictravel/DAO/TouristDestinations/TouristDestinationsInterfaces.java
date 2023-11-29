@@ -9,4 +9,6 @@ public interface TouristDestinationsInterfaces {
     CommunicationInterface createTouristDestinations(TouristDestination touristDestination);
     CommunicationInterface updateTouristDestinations(TouristDestination touristDestination);
 
+    CommunicationInterface getAllTouristDestinations();
+
 }

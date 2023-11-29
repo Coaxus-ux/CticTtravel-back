@@ -20,10 +20,8 @@ public class TouristDestinationsImpl implements TouristDestinationsInterfaces {
     @Override
     public CommunicationInterface getTouristDestinations(TouristDestination touristDestination) {
         try {
-            List<TouristDestination> touristDestinations = entityManager.createQuery("SELECT t FROM TouristDestination t WHERE t.touristDestinationCountry = :country AND t.touristDestinationState = :state", TouristDestination.class)
+            List<TouristDestination> touristDestinations = entityManager.createQuery("SELECT t FROM TouristDestination t WHERE t.touristDestinationCountry = :country", TouristDestination.class)
                     .setParameter("country", touristDestination.getTouristDestinationCountry())
-
-                    .setParameter("state", touristDestination.getTouristDestinationState())
                     .getResultList();
             if (touristDestinations.isEmpty())
                 return new CommunicationInterface.Builder().setSuccessful(false).setMessage("Tourist destination not found").build();
@@ -80,5 +78,18 @@ public class TouristDestinationsImpl implements TouristDestinationsInterfaces {
         }catch (Exception e){
             return new CommunicationInterface.Builder().setSuccessful(false).setMessage(e.getMessage()).build();
         }
+    }
+
+    @Override
+    public CommunicationInterface getAllTouristDestinations() {
+       try {
+              List<TouristDestination> touristDestinations = entityManager.createQuery("SELECT t FROM TouristDestination t", TouristDestination.class).getResultList();
+              if (touristDestinations.isEmpty())
+                return new CommunicationInterface.Builder().setSuccessful(false).setMessage("Tourist destination not found").build();
+
+              return new CommunicationInterface.Builder().setSuccessful(true).setMessage("Tourist destination found").setData(DTOUtils.convertDestinationsToMap(touristDestinations)).build();
+       }catch (Exception e){
+           return new CommunicationInterface.Builder().setSuccessful(false).setMessage(e.getMessage()).build();
+       }
     }
 }

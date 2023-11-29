@@ -22,7 +22,7 @@ public class TouristPlansImp implements TouristPlansInterfaces {
     @Override
     public CommunicationInterface createTouristPlan(TouristPlans touristPlan) {
         try {
-            List<TouristPlans> availableTouristPlans = entityManager.createQuery("SELECT tp FROM TouristPlans tp WHERE tp.touristPlanName = :touristPlanName AND tp.admin = :admin", TouristPlans.class)
+            List<TouristPlans> availableTouristPlans = entityManager.createQuery("SELECT tp FROM TouristPlans tp WHERE UPPER(tp.touristPlanName) = UPPER(:touristPlanName) AND tp.admin = :admin", TouristPlans.class)
                     .setParameter("touristPlanName", touristPlan.getTouristPlanName())
                     .setParameter("admin", touristPlan.getAdmin())
                     .getResultList();
@@ -114,4 +114,19 @@ public class TouristPlansImp implements TouristPlansInterfaces {
             return new CommunicationInterface.Builder().setSuccessful(false).setMessage(e.getMessage()).build();
         }
     }
+
+    @Override
+    public CommunicationInterface getAllTouristPlans(Admins admin) {
+        try {
+            List<TouristPlans> availableTouristPlans = entityManager.createQuery("SELECT tp FROM TouristPlans tp WHERE tp.admin = :admin", TouristPlans.class)
+                    .setParameter("admin", admin)
+                    .getResultList();
+            if (availableTouristPlans.isEmpty())
+                return new CommunicationInterface.Builder().setSuccessful(false).setMessage("Tourist plan not found").build();
+            return new CommunicationInterface.Builder().setSuccessful(true).setMessage("Tourist plan found").setData(DTOUtils.convertTouristToMap(availableTouristPlans)).build();
+        } catch (Exception e) {
+            return new CommunicationInterface.Builder().setSuccessful(false).setMessage(e.getMessage()).build();
+        }
+    }
+
 }
