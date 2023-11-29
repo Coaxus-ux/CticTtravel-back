@@ -9,6 +9,7 @@ services:
       - "8082:8090"
     networks:
       - backend_citcd
+    restart: always
 
 networks:
   backend_citcd:
