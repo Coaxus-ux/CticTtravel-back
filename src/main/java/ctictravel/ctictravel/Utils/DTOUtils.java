@@ -91,6 +91,9 @@ public class DTOUtils {
             touristDestinationTouristPlan.put("touristPlanCountry", t.getTouristPlan().getTouristPlanCountry());
             touristDestinationTouristPlan.put("adminId", t.getTouristPlan().getAdmin().getAdminId());
             touristDestinationTouristPlan.put("touristDestinationTouristPlanId", t.getTouristDestinationTouristPlanId());
+            touristDestinationTouristPlan.put("destinationId", t.getTouristDestination().getTouristDestinationId());
+            touristDestinationTouristPlan.put("destinationState", t.getTouristDestination().getTouristDestinationState());
+
             touristDestinationTouristPlansUser.put(t.getTouristDestinationTouristPlanId().toString(), touristDestinationTouristPlan);
         }
         return touristDestinationTouristPlansUser;
@@ -149,6 +152,7 @@ public class DTOUtils {
                 accommodation.put("touristPlanCountry", ap.getTouristPlan().getTouristPlanCountry());
                 accommodation.put("adminId", ap.getTouristPlan().getAdmin().getAdminId());
                 accommodation.put("accommodationsTouristPlanId", ap.getAccommodationsTouristPlanId());
+                accommodation.put("accommodationState", ap.getAccommodation().getAccommodationState());
                 accommodations.put(ap.getAccommodationsTouristPlanId().toString(), accommodation);
           }
             return accommodations;
